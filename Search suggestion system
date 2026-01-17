@@ -1,1 +1,37 @@
+import java.util.*;
 
+public class Main {
+
+    public static void main(String[] args) {
+        String[] products = {"mobile", "mouse", "moneypot", "monitor", "mousepad"};
+        String searchWord = "mouse";
+
+        List<List<String>> result = suggestedProducts(products, searchWord);
+
+        for (List<String> list : result) {
+            System.out.println(list);
+        }
+    }
+
+    public static List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        Arrays.sort(products);
+        List<List<String>> result = new ArrayList<>();
+        String prefix = "";
+         for (char ch : searchWord.toCharArray()) {
+            prefix += ch;
+            List<String> suggestions = new ArrayList<>();
+          for (String product : products) {
+                if (product.startsWith(prefix)) {
+                    suggestions.add(product);
+                }
+                if (suggestions.size() == 3) {
+                    break;
+                }
+            }
+
+            result.add(suggestions);
+        }
+
+        return result;
+    }
+}
